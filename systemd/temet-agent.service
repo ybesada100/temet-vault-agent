@@ -1,0 +1,33 @@
+[Unit]
+Description=Temet Vault Agent — autonomous Obsidian vault assistant
+Documentation=https://github.com/ybesada100/temet-vault-agent
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# === EDIT THESE PATHS ===
+# Project root (where this repo is checked out)
+WorkingDirectory=%h/projects/temet-vault-agent
+# Path to your Obsidian vault
+Environment=OBSIDIAN_VAULT_PATH=%h/Documents/Vault
+# Pin the python interpreter (system python3 or a venv)
+ExecStart=/usr/bin/python3 -m examples.autonomous_loop --interval 5
+
+# Resilience
+Restart=on-failure
+RestartSec=30s
+TimeoutStopSec=20s
+
+# Logging — journalctl --user -u temet-agent -f
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=temet-agent
+
+# Resource hints — adjust to taste
+Nice=10
+MemoryHigh=4G
+
+[Install]
+WantedBy=default.target

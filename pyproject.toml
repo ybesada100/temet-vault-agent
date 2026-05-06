@@ -1,7 +1,7 @@
 [project]
 name = "temet-vault-agent"
-version = "0.1.0"
-description = "Local agent over Obsidian vault using LangGraph + Ollama"
+version = "0.2.0"
+description = "Local autonomous agent over Obsidian vault using LangGraph + Ollama"
 authors = [{name = "ybesada100"}]
 readme = "README.md"
 license = {text = "MIT"}
@@ -24,3 +24,4 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 vault-agent = "src.main:main"
+vault-agent-loop = "examples.autonomous_loop:main"

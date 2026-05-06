@@ -1,0 +1,18 @@
+[Unit]
+Description=Temet Vault Agent — periodic kick (alternative to long-running service)
+Documentation=https://github.com/ybesada100/temet-vault-agent
+
+# Use this *instead of* enabling temet-agent.service when you'd rather have
+# systemd manage the cadence (one shot per tick) than let asyncio do it.
+# Pair with a one-shot variant of the .service: ExecStart=... --max-cycles 1
+
+[Timer]
+# First fire 5 min after boot, then every 5 min while up.
+OnBootSec=5min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=true
+Unit=temet-agent.service
+
+[Install]
+WantedBy=timers.target
